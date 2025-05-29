@@ -1,4 +1,30 @@
-<x-guest-layout>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Registo</title>
+  <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Open+Sans:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])    
+</head>
+
+<body class="relative min-h-screen flex items-center justify-center">
+
+    <!-- Background image with gradient overlay -->
+    <div class="absolute inset-0 z-0">
+        <img src="https://images.unsplash.com/photo-1710808897178-d52b5d01579d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+             alt="Background"
+             class="w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-gradient-to-b from-purple-light to-purple-dark opacity-80"></div>
+    </div>
+
+    <!-- Form Container -->
+    <div class="relative z-10 w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
+        <div class="text-center">
+            <h2 class="text-3xl font-extrabold text-orange-dark">Login</h2>
+        </div>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
@@ -44,4 +70,7 @@
             </x-primary-button>
         </div>
     </form>
-</x-guest-layout>
+    </div>
+
+</body>
+</html>
