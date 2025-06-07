@@ -13,11 +13,29 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+       // User::factory(5)->create();
 
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'Ana Aredes',
+            'email' => 'ana@example.com',
+            'nif'=> '213456789',
+        ]);
+
+        User::factory()->create([
+            'name' => 'Hugo Gomes',
+            'email' => 'hugo@example.com',
+            'nif'=> '231456789',
+        ]);
+
+        User::factory()->create([
+            'name' => 'Maria',
+            'email' => 'maria@example.com',
+            'nif'=> '241456789',
+            'role'=> 'admin',
+        ]);
+
+        $this->call([
+            ReservaSeeder::class,
         ]);
     }
 }
