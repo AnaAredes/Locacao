@@ -32,7 +32,7 @@ return [
     |
     */
 
-    'lifetime' => (int) env('SESSION_LIFETIME', 120),
+    'lifetime' => (int) env('SESSION_LIFETIME', 30),
 
     'expire_on_close' => env('SESSION_EXPIRE_ON_CLOSE', false),
 
@@ -107,10 +107,10 @@ return [
     |--------------------------------------------------------------------------
     | Session Sweeping Lottery
     |--------------------------------------------------------------------------
-    |
-    | Some session drivers must manually sweep their storage location to get
-    | rid of old sessions from storage. Here are the chances that it will
-    | happen on a given request. By default, the odds are 2 out of 100.
+    |Essa opção controla quando o Laravel executa a limpeza (garbage collection) 
+    |das sessões expiradas, de forma aleatória, para economizar recursos.
+    |A cada requisição, o Laravel tem 2% de chance de rodar
+    |a limpeza automática das sessões expiradas.
     |
     */
 
