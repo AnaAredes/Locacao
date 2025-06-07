@@ -9,8 +9,10 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use PgSql\Lob;
 
 class RegisteredUserController extends Controller
 {
@@ -29,22 +31,27 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
-
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-
-        event(new Registered($user));
-
-        Auth::login($user);
-
-        return redirect(route('dashboard', absolute: false));
+        try {
+            $request->validate([
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+                'password' => ['required', 'confirmed', Rules\Password::defaults()],
+                'nif' => ['required', 'max:9', 'unique:' . User::class],
+            ]);
+    
+            $user = User::create([
+                'name' => ucwords(strtolower($request->name)),
+                'email' => $request->email,
+                'nif' => $request->nif,
+                'role' => 'client',
+                'password' => Hash::make($request->password),
+            ]);
+    
+            Auth::login($user);
+            
+            return redirect('/')->with('success', 'Bem-vindo!');
+        } catch (\Throwable $e) {
+            return redirect('/')->with('error', 'Erro ao registar.');
+        }
     }
 }
