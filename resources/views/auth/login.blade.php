@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página de Registo</title>
+    <title>Login</title>
   <link
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Open+Sans:wght@300;400;600&display=swap"
         rel="stylesheet">
@@ -21,9 +21,9 @@
     </div>
 
     <!-- Form Container -->
-    <div class="relative z-10 w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
-        <div class="text-center">
-            <h2 class="text-3xl font-extrabold text-orange-dark">Login</h2>
+    <div class="relative z-10 w-full max-w-md bg-gray-50 p-8 rounded-lg shadow-lg">
+        <div class="flex items-center justify-center">
+            <x-application-logo class="w-9 h-9" />
         </div>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
@@ -53,20 +53,20 @@
         <!-- Remember Me -->
         <div class="block mt-4">
             <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-purple-dark shadow-sm focus:ring-purple-dark" name="remember">
+                <span class="ms-2 text-sm text-gray-600">{{ __('Lembrar os meus dados') }}</span>
             </label>
         </div>
 
         <div class="flex items-center justify-end mt-4">
             @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
+                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-dark" href="{{ route('password.request') }}">
+                    {{ __('Esqueceu a password?') }}
                 </a>
             @endif
 
             <x-primary-button class="ms-3">
-                {{ __('Log in') }}
+                {{ __('Entrar') }}
             </x-primary-button>
         </div>
     </form>

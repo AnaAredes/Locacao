@@ -1,6 +1,7 @@
 <header class="fixed w-full bg-white/90 backdrop-blur-sm z-50 shadow-sm">
     <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
-        <div class="text-2xl font-bold text-gray-800">
+        <div class="flex items-center space-x-2 text-2xl font-bold text-gray-800">
+            <x-application-logo class="w-9 h-9" />
             <a href="{{ url('/') }}">Paraíso</a>
         </div>
         <div class="hidden md:flex space-x-8">

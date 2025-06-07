@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Página de Registo</title>
   <link
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Open+Sans:wght@300;400;600&display=swap"
@@ -21,9 +22,9 @@
     </div>
 
     <!-- Form Container -->
-    <div class="relative z-10 w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
-        <div class="text-center">
-            <h2 class="text-3xl font-extrabold text-orange-dark">Criar conta</h2>
+    <div class="relative z-10 w-full max-w-md bg-gray-50 p-8 rounded-lg shadow-lg">
+         <div class="flex items-center justify-center">
+            <x-application-logo class="w-9 h-9" />
         </div>
 
         <form class="mt-8 space-y-6" method="POST" action="{{ route('register') }}">
@@ -75,7 +76,7 @@
             <div>
                 <button type="submit"
                         class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-dark hover:bg-purple-light focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-light">
-                    Register
+                    Registar
                 </button>
             </div>
         </form>
