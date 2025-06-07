@@ -12,10 +12,26 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
-            },
+                sans: ['Montserrat', ...defaultTheme.fontFamily.sans],
+                montserrat: ['Montserrat', 'sans-serif'],
+                raleway: ['Raleway', 'sans-serif'],
+      },
+      colors: {
+        beige: {
+          light: '#F5F5DC',
+          dark: '#D4C9A4',
         },
+        purple: {
+          light: '#9B4D96', 
+          dark: '#6B1E8C',
+        },
+        orange: {
+          light: '#FF7F32',
+          dark: '#F97316',
+        },
+      },
     },
+  },
 
     plugins: [forms],
 };
