@@ -2,14 +2,35 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class ReservaSeeder extends Seeder
 {
     public function run(): void
     {
         // Coleta IDs válidos
+
+        User::create([
+            'name' => 'Ana',
+            'email' => 'anaelisaarede@gmail.com',
+            'password' => Hash::make('123456789'),
+            'nif' => '912346789',
+            'role' => 'client',
+            'email_verified_at' => now(),
+        ]);
+
+        User::create([
+            'name' => 'Joao',
+            'email' => 'joao@exemplo.com',
+            'password' => Hash::make('123456789'),
+            'nif' => '922346789',
+            'role' => 'client',
+            'email_verified_at' => now(),
+        ]);
+
         $userIds = DB::table('users')->pluck('id');
         $bemLocavelIds = DB::table('bens_locaveis')->pluck('id');
 

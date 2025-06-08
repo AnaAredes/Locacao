@@ -33,9 +33,11 @@ class ImagemSeeder extends Seeder
         ];
 
         // Atualiza os primeiros 16 registros
-        for ($i = 1; $i <= 16; $i++) {
+        for ($i = 0; $i <= 16; $i++) {
             DB::table('bens_locaveis')->where('id', $i)->update([
-                'imageUrl' => $arrayImagens[array_rand($arrayImagens)],
+                'imageUrl' => $arrayImagens[$i],
+
+                //'imageUrl' => $arrayImagens[array_rand($arrayImagens)],
             ]);
         }
     }

@@ -20,9 +20,9 @@ class ReservaManager
 
 
     /**
-     * Cria uma nova reserva para um usuário em um bem locável.
+     * Cria uma nova reserva para um utilizador em um bem locável.
      *
-     * @param int $user_id O identificador único do usuário.
+     * @param int $user_id O identificador único do user.
      * @param int $bem_id O identificador único do bem locável.
      * @param string $data_inicio A data de início da reserva (YYYY-MM-DD).
      * @param string $data_fim A data de término da reserva (YYYY-MM-DD).
