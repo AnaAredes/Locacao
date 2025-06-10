@@ -93,31 +93,49 @@ class PagamentoController extends Controller
     {
         try {
             $servicoPagamento = PagamentoFactory::criar($tipo);
-
+            
             $dadosConfirmacao = [
                 'token' => $request->input('token'),
                 'valor' => session('valor_reserva'),
                 'pagador' => Auth::user()->name
             ];
-
+            
             $resultado = $servicoPagamento->confirmar($dadosConfirmacao);
-
+            
             if (!$resultado['success']) {
                 return redirect()->route('reserva.index')->with('error', $resultado['message']);
             }
-
-            // Criar a reserva
+            
             $reserva = $this->criarReserva();
-
-            return view('reserva.sucesso', [
-                'amount' => $resultado['data']['valor'],
-                'payerName' => $resultado['data']['pagador'],
-                'metodo' => $resultado['data']['metodo']
+            
+            session([
+                'pagamento_sucesso' => [
+                    'amount' => $resultado['data']['valor'],
+                    'payerName' => $resultado['data']['pagador'],
+                    'metodo' => $resultado['data']['metodo'],
+                    'reserva_id' => $reserva->id
+                ]
             ]);
+            
+            return redirect()->route('pagamento.sucesso.view');
+            
         } catch (Exception $e) {
             logger()->error('Erro ao confirmar pagamento', ['error' => $e->getMessage(), 'tipo' => $tipo]);
             return redirect()->route('reserva.index')->with('error', 'Erro ao confirmar pagamento.');
         }
+    }
+    
+    public function mostrarSucesso()
+    {
+        $dadosSucesso = session('pagamento_sucesso');
+        
+        if (!$dadosSucesso) {
+            return redirect()->route('reserva.index')->with('error', 'Sessão expirada.');
+        }
+        
+        session()->forget('pagamento_sucesso');
+        
+        return view('reserva.sucesso', $dadosSucesso);
     }
 
     

@@ -61,6 +61,7 @@ Route::prefix('/descarregar')->middleware(['auth'])->group(function () {
 Route::prefix('/pagamento')->middleware(['auth'])->group(function () {
     Route::post('/iniciar', [PagamentoController::class, 'iniciar'])->name('pagamento.iniciar');
     Route::get('/sucesso/{tipo}', [PagamentoController::class, 'confirmar'])->name('pagamento.sucesso');
+    Route::get('/sucesso', [PagamentoController::class, 'mostrarSucesso'])->name('pagamento.sucesso.view');
     Route::get('/cancelar/{tipo}', [PagamentoController::class, 'cancelar'])->name('pagamento.cancelar');
 });
 
