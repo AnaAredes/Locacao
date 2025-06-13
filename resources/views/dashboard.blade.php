@@ -49,7 +49,7 @@
                 @endphp
 
                 {{-- Reservas Futuras --}}
-                <details class="group border rounded-lg shadow-sm bg-white open:shadow-md" open>
+                <details class="group border rounded-lg shadow-sm bg-white open:shadow-md">
                     <summary
                         class="cursor-pointer py-4 px-6 bg-purple-200 text-purple-dark text-xl font-semibold hover:bg-beige-light">
                         Reservas Futuras
@@ -59,7 +59,7 @@
                             @php
                                 $inicio = \Carbon\Carbon::parse($bem->data_inicio);
                             @endphp
-                            @if ($inicio->gte($hoje))
+                            @if ($inicio->gt($hoje))
                                 <x-card-reserva :bem="$bem" :caracteristicas="$caracteristicas" />
                             @endif
                         @endforeach

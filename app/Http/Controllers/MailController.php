@@ -6,6 +6,7 @@ use App\Mail\EmailCliente;
 use App\Models\Reserva;
 use App\Services\Finders\BensLocaveisFinder;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class MailController extends Controller
@@ -16,7 +17,7 @@ class MailController extends Controller
      * Construtor da classe MailController.
      *
      * Inicializa a instância do serviço BensLocaveisService para buscar informações de bem locável.
-    */
+     */
     public function __construct(BensLocaveisFinder $bemServico)
     {
         $this->bemServico = $bemServico;
@@ -26,7 +27,7 @@ class MailController extends Controller
      * Envia um e-mail de confirmação de reserva usando o ID armazenado na sessão.
      *
      * @return \Illuminate\Http\RedirectResponse
-    */
+     */
     public function sendEmailSucessoReserva()
     {
         $reserva_id = session('reserva_id'); // ou Session::get('reserva_id');
@@ -40,6 +41,14 @@ class MailController extends Controller
         if (isset($detalhesReserva['error'])) {
             return back()->with('error', $detalhesReserva['error']);
         }
+        Log::info('SMTP Host: ' . config('mail.mailers.smtp.host'));
+        Log::info('SMTP Port: ' . config('mail.mailers.smtp.port'));
+
+        /*Mail::to($detalhesReserva['email'])->queue(new EmailCliente(
+            $detalhesReserva['bem_detalhes'],
+            $detalhesReserva['reserva'],
+            $detalhesReserva['clientName']
+        ));*/
 
         // Envia o e-mail
         Mail::to($detalhesReserva['email'])->send(new EmailCliente(
@@ -48,7 +57,7 @@ class MailController extends Controller
             $detalhesReserva['clientName']
         ));
 
-        return back()->with('success', 'E-mail enviado com sucesso!');
+        return redirect('dashboard')->with('success', 'E-mail enviado com sucesso!');
     }
 
     /**
@@ -56,7 +65,7 @@ class MailController extends Controller
      *
      * @param int $reserva_id
      * @return \Illuminate\Http\RedirectResponse
-    */
+     */
     public function sendEmailReserva($reserva_id)
     {
         $detalhesReserva = $this->obterDetalhesReserva($reserva_id);
@@ -65,13 +74,24 @@ class MailController extends Controller
             return back()->with('error', $detalhesReserva['error']);
         }
 
-        Mail::to($detalhesReserva['email'])->send(
+        Log::info('SMTP Host: ' . config('mail.mailers.smtp.host'));
+        Log::info('SMTP Port: ' . config('mail.mailers.smtp.port'));
+
+        /* Mail::to($detalhesReserva['email'])->queue(
             new EmailCliente(
                 $detalhesReserva['bem_detalhes'],
                 $detalhesReserva['reserva'],
                 $detalhesReserva['clientName']
             )
-        );
+        );*/
+
+        // Envia o e-mail
+        Mail::to($detalhesReserva['email'])->send(new EmailCliente(
+            $detalhesReserva['bem_detalhes'],
+            $detalhesReserva['reserva'],
+            $detalhesReserva['clientName']
+        ));
+
 
         return back()->with('success', 'E-mail enviado com sucesso!');
     }
@@ -81,7 +101,7 @@ class MailController extends Controller
      *
      * @param int $reserva_id
      * @return array dados da reserva, utilizador e bem locável, ou erro.
-    */
+     */
     private function obterDetalhesReserva($reserva_id)
     {
         $user = Auth::user();
